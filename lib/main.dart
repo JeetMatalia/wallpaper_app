@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -18,32 +17,24 @@ class wallpaperApp extends StatefulWidget {
 class _wallpaperAppState extends State<wallpaperApp> {
   List data = [];
 
-  void initstate() {
-    print("rammm");
-    getData();
+  void initState() {
     super.initState();
-
+    getData();
   }
 
-   getData() async {
+  getData() async {
     var imgData = await http.get(Uri.parse(
-        'https://api.unsplash.com/photos?page=1&client_id=VHFW5Her3S17W9z06s8n7Ll_1Ka8PVbRCeAWHVIKZeo')).then((value) {
-          print(value);});
-
+        'https://api.unsplash.com/photos?page=1&client_id=VHFW5Her3S17W9z06s8n7Ll_1Ka8PVbRCeAWHVIKZeo'));
     var jData = jsonDecode(imgData.body);
-    print(jData['urls']);
     setState(() {
-        data = jData['urls'];
+      data = jData;
     });
-
-   
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-
       home: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
@@ -53,23 +44,19 @@ class _wallpaperAppState extends State<wallpaperApp> {
         ),
         body: GridView.builder(
             itemCount: data.length,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-            itemBuilder: (context, index){
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2),
+            itemBuilder: (context, index) {
               return Container(
                 height: 300,
-
+                // width: double.infinity,
                 padding: const EdgeInsets.all(10),
                 child: Image.network(
-                  data[index]['urls']['regular'],
-
-
+                  data[index]['urls']['small'],
                 ),
               );
-            }
-        ),
+            }),
       ),
-
-
     );
   }
 }
