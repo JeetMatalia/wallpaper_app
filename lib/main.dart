@@ -34,23 +34,24 @@ class _wallpaperAppState extends State<wallpaperApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.black,
         appBar: AppBar(
           title: const Text("4K HD Wallpaper"),
           centerTitle: true,
           backgroundColor: Colors.amberAccent,
         ),
         body: GridView.builder(
-            itemCount: data.length,
+                      itemCount: data.length,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2),
             itemBuilder: (context, index) {
               return Container(
-                height: 300,
-                // width: double.infinity,
-                padding: const EdgeInsets.all(10),
+                height: 400,
+                width: double.infinity,
+                padding: const EdgeInsets.all(5),
                 child: Image.network(
                   data[index]['urls']['small'],
                 ),
